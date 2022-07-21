@@ -1,6 +1,13 @@
 # Prerequisites
 
-Setup required services and infrastructure:
+Expecting the following tools to be installed:
+* `terraform`
+* `kubectl`
+* `gcloud`
+
+Make sure to login properly to `gcloud` and [make credentials available to terraform](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/getting_started#configuring-the-provider).
+
+Then you can setup required services and infrastructure as follows:
 ```
 terraform -chdir=tf init
 terraform -chdir=tf apply
@@ -35,7 +42,7 @@ gcloud beta run deploy filesystem-app --source . \
     --update-env-vars FILESTORE_IP_ADDRESS=10.39.55.66,FILE_SHARE_NAME=data
 ```
 
-First time might result in:
+First time might result in the blow inquiry, go ahead and create the container repository:
 ```
 Deploying from source requires an Artifact Registry Docker repository to store built containers. A repository named
 [cloud-run-source-deploy] in region [europe-west1] will be created.
@@ -43,7 +50,7 @@ Deploying from source requires an Artifact Registry Docker repository to store b
 Do you want to continue (Y/n)?  Y
 ```
 
-We can not interact directly with Firestore, so we'll need a VM to interact with the NFS:
+We can not interact directly with Filestore, so we'll need a VM to interact with the NFS. VM was created manually and is private, but you can use IAP to interact with it:
 ```
 # We can SSH without a public IP via IAP
 gcloud compute ssh --zone "europe-west1-b" "myvm"  --tunnel-through-iap --project "nvoss-php-nfs-demo"
@@ -51,7 +58,7 @@ gcloud compute ssh --zone "europe-west1-b" "myvm"  --tunnel-through-iap --projec
 gcloud compute scp index.php root@myvm:/tmp --project=nvoss-php-nfs-demo --zone=europe-west1-b
 ```
 
-Due to organization policies I can't make the application public, but we can test it as follows:
+Due to organization policies I can't make the application public, but we can test a private Cloud Run service as follows:
 ```
 curl -H "Authorization: Bearer $(gcloud auth print-identity-token)" https://filesystem-app-wawokuzksa-ew.a.run.app/
 ```

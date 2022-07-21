@@ -58,18 +58,3 @@ provider "registry.terraform.io/hashicorp/http" {
     "zh:cb9d4a0aeebd25cbbae5b7c726deb285c007079191bc43a6a8d6b951b7ef928a",
   ]
 }
-
-provider "registry.terraform.io/hashicorp/kubernetes" {
-  version     = "2.12.1"
-  constraints = "~> 2.10"
-  hashes = [
-    "h1:6ZgqegUao9WcfVzYg7taxCQOQldTmMVw0HqjG5S46OY=",
-  ]
-}
-
-provider "registry.terraform.io/hashicorp/random" {
-  version = "3.3.2"
-  hashes = [
-    "h1:H5V+7iXol/EHB2+BUMzGlpIiCOdV74H8YjzCxnSAWcg=",
-  ]
-}
