@@ -65,7 +65,11 @@ curl -H "Authorization: Bearer $(gcloud auth print-identity-token)" https://file
 
 ## GKE Autopilot
 
-Cluster was setup before, so we only have to deploy:
+Cluster was setup before, so we only have to deploy.
+Make sure to get the credentials to connect first:
+```
+gcloud container clusters get-credentials my-cluster --region europe-west1 --project nvoss-php-nfs-demo
+```
 
 We can watch how it happens in a second terminal as well:
 ```
